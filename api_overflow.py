@@ -180,7 +180,7 @@ class Backup:
 
        for bucket in list_buckets:
 
-           backup_string+='\n {} - {}'.format(b.get_id(),b.getJson()
+           backup_string+='\n {} - {}'.format(b.getId(),b.getJson()
 
        with open(path,'w+') as file:
 
