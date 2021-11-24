@@ -29,25 +29,7 @@ logger_file_handler.setLevel(logging.DEBUG)
 logger_file_handler.setFormatter(Formatter(DEBUG_LOG_FORMAT))
 logger.addHandler(logger_file_handler)
 
-class FileNotFoundError(OSError):
-    pass
 
-#load of json files
-class credential:
-
-    def __init__(self):
-        self.__path = str(input('--> Type path for json file: '))
-
-    def get(self):
-        try:
-             f=open(self.__path, "r")
-             json=f.read()
-             f.close()
-             return json
-
-    except FileNotFoundError:
-        logger.error('file doesnt {} exist'.format(self.__path))
-	
 #class for api connections
 
 class Connect:
@@ -250,7 +232,7 @@ def main():
         bucket_path = str(input('--> Type path for buckets file: '))
         list_buckets = data_input.buckets(connect,type)
         list_secrets = data_input.secrets()
-	
+	backup=Backup(FILE_BACKUP,list_buckets)
 			
 	logger.info('.........Starting script...........')
         for bucket in list_buckets:
