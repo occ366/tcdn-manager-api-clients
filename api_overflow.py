@@ -197,7 +197,9 @@ class Data_input:
         try:
             with open(path_bucket_file) as file:
                 for line in file:
-                    self.__list_buckets.append(Bucket(str(line), type, connect)))
+                
+		    buketId,name,hosts = line.split()
+                    self.__list_buckets.append(Bucket(bucketId, type, connect)))
 
             return self.__list_buckets      
             logger.info('Data_input.secrets(): Load bucket lists on file: '.format(path_secrets_json_file))
