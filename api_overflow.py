@@ -32,21 +32,6 @@ logger.addHandler(logger_file_handler)
 class FileNotFoundError(OSError):
     pass
 
-#load of json files
-class credential:
-
-    def __init__(self):
-        self.__path = str(input('--> Type path for json file: '))
-
-    def get(self):
-        try:
-             f=open(self.__path, "r")
-             json=f.read()
-             f.close()
-             return json
-
-    except FileNotFoundError:
-        logger.error('file doesnt {} exist'.format(self.__path))
 	
 #class for api connections
 
