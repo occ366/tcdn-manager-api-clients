@@ -57,7 +57,7 @@ def main():
         bucket_path = str(input('--> Type path for buckets file: '))
         list_buckets = data_input.buckets(connect,type)
         list_secrets = data_input.secrets()
-
+        backup=Backup(FILE_BACKUP,list_buckets)
 
         logger.info('.........Starting script...........')
         for bucket in list_buckets:
