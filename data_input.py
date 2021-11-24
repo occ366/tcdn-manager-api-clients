@@ -11,6 +11,7 @@ class Data_input:
         self.__path_json = path_json_file
         self.__path_bucket_file = path_buckets_file
 
+
     def secrets(self):
 
         try:
@@ -22,7 +23,7 @@ class Data_input:
             return self.__listNewSecrets
 
         except FileNotFoundError:
-        logger.error('Data_input.secrets(): File doesnt {} exist'.format(path_secrets_json_file))
+            logger.error('Data_input.secrets(): File doesnt {} exist'.format(path_secrets_json_file))
 
 
     def buckets(self,connect,type):
@@ -31,7 +32,7 @@ class Data_input:
             with open(path_bucket_file) as file:
                 for line in file:
                     bucketId, name, hosts = line.split()
-                    self.__list_buckets.append(Bucket(bucketId, type, connect)))
+                    self.__list_buckets.append(Bucket(bucketId, type, connect))
 
             return self.__list_buckets
             logger.info('Data_input.secrets(): Load bucket lists on file: '.format(path_secrets_json_file))

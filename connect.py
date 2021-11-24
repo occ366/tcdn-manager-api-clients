@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import resquests
+import requests
+import json
 from requests import ConnectionError
 from requests import HTTPError
 from requests import Timeout
@@ -13,15 +14,21 @@ logger = logging.getLogger(__name__)
 class Connect:
 
     def __init__(self, user, pwd):
+
         self.__auth=(user,pwd)
 
+
     def get_auth(self):
+
         return self.__auth
+
 
     def set_auth(self,user,pwd):
         self.__auth = (user,pwd)
 
+
     def put(self,url,json):
+
         try:
             response=requests.put(url,auth=self.__auth,data=json.dumps(json))
             response.raise_for_status()
@@ -29,21 +36,23 @@ class Connect:
 
             return response
 
-            except ConnectionError:
-                logger.info('Connection error. Retrying...')
-                sleep(TIME_OUT)
+        except ConnectionError:
+            logger.info('Connection error. Retrying...')
+            sleep(TIME_OUT)
 
-            except Timeout:
-                logger.info('Timeout. Retrying...')
-                sleep(TIME_OUT)
+        except Timeout:
+            logger.info('Timeout. Retrying...')
+            sleep(TIME_OUT)
 
-            except HTTPError:
-                logger.error('HTTP error. Code {}'.format(set))
+        except HTTPError:
+            logger.error('HTTP error. Code {}'.format(response.status_code))
 
-            except:
-                logger.info('Unexpected error {}'.format(set))
+        except:
+            logger.info('Unexpected error {}'.format(response.json()))
+
 
     def get(self,url):
+
         try:
             response=requests.get(url,auth=self.__auth)
             response.raise_for_status()
@@ -58,10 +67,11 @@ class Connect:
             sleep(TIME_OUT)
 
         except HTTPError:
-            logger.error('HTTP error. Code {}'.format(set))
+            logger.error('HTTP error. Code {}'.format(respponse.status_code))
 
         except:
-            logger.info('Unexpected error {}'.format(set))
+            logger.info('Unexpected error {}'.format(reponse.json()))
+
 
     def check_auth(self,url):
 
@@ -71,6 +81,7 @@ class Connect:
             logger.error('Wrong user or password')
             print('Wrong user or password')
             return False
+
         else:
             logger.info('login sucessful with user: '+ str(self.__auth[0]))
             return True

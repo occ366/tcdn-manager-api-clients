@@ -55,7 +55,7 @@ def main():
 
         bucket_path = str(input('--> Type path for buckets file: '))
         list_buckets = data_input.buckets(connect,type)
-        list_secrets = data_input.secrets()
+        json_load = data_input.json()
         backup=Backup(FILE_BACKUP,list_buckets)
 
         logger.info('.........Starting script...........')
@@ -63,8 +63,8 @@ def main():
 
             logger.info('Updating settings on bucket: {}'.format(bucket.getId()))
             print('Update the json on bucket: {}'.format(bucket.getId()))
-            logger.info('Update the json {} on bucket: {}'.format(list_secrets,bucket.getId()))
-            bucket.updateSecrets(connect,list_secrets)
+            logger.info('Update the json {} on bucket: {}'.format(json_load,bucket.getId()))
+            bucket.updateJson(connect,json_list)
             time.sleep(TIME_DELAY)
             logger.info('End of the Change.... ')
             print('End of the changes, check execution in: {}'.format(LOG_PATH))

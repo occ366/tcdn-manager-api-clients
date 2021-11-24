@@ -16,27 +16,27 @@ class Bucket:
         self.__json = connect.get(bucket_url).json()
         self.__secrets = self.__json["overflow_config"]["akamai_secrets"]
 
-   def getId(self):
+    def getId(self):
 
         return self.__id
 
-   def getJson():
+    def getJson():
 
-       return self.__json
+        return self.__json
 
-   def checkHasSecret(self,csecrets):
+    def checkHasSecret(self,csecrets):
 
-       newSecrets=self.__json["overflow_config"]["akamai_secrets"]
+        newSecrets=self.__json["overflow_config"]["akamai_secrets"]
 
-       try:
-           for csecrest in csecrets:
-               for secret in self.__json["overflow_config"]["akamai_secrets"]:
-                   if csecret["secret"] in secret["secret"]:
-                      logger.info('bucket.checkHasSecret(): bucket {} have configurate secret: {}'.format(self.__id, secret["secret"]))
+        try:
+            for csecrest in csecrets:
+                for secret in self.__json["overflow_config"]["akamai_secrets"]:
+                    if csecret["secret"] in secret["secret"]:
+                        logger.info('bucket.checkHasSecret(): bucket {} have configurate secret: {}'.format(self.__id, secret["secret"]))
 
-                  else:
-                      newSecrects.append(csecret)
-                      logger.info('bucket.checkHasSecret(): new secret add to bucket: {}'.format(self.__id, secret["secret"]))
+                    else:
+                        newSecrects.append(csecret)
+                        logger.info('bucket.checkHasSecret(): new secret add to bucket: {}'.format(self.__id, secret["secret"]))
 
         except:
             logger.info('bucket.checkHasSecret(): Not secrets configs')
@@ -47,12 +47,14 @@ class Bucket:
 
         json_secrets=self.checkHasSecret(csecrets)
 
-        if (self.__json["hosts"] in "\.") and json_secrests):
-
+        if (self.__json["hosts"] in "\.") and json_secrets:
 
             host = ".edgesuite.net".format(self.__json["hosts"])
-            newjson={"overflow_config": {"type": 2,"status": 0,"percentage": 100,"host": host ,"akamai_secrets": [json_secrests]}}
-
+            newjson={"overflow_config": {"type": 2,"status": 0,"percentage": 100,"host": host ,"akamai_secrets": json_secrests}}
             connect.put(self.__url,json.dump(newjson))
+            logger.info("bucket.updateSecrets(): Update in bucket {}, json: {}".json(self.__id,newjson))
 
 
+    def updateJson(self, connect, json):
+
+         connect.put(self.__url,json.dump(newjson))
