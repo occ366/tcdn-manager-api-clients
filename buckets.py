@@ -16,7 +16,7 @@ class Bucket:
         self.__json = connect.get(bucket_url).json()
         self.__secrets = self.__json["overflow_config"]["akamai_secrets"]
 
-    def getId(self):
+   def getId(self):
 
         return self.__id
 
@@ -54,5 +54,5 @@ class Bucket:
             newjson={"overflow_config": {"type": 2,"status": 0,"percentage": 100,"host": host ,"akamai_secrets": [json_secrests]}}
 
             connect.put(self.__url,json.dump(newjson))
-            
-            
+
+
